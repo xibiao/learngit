@@ -1,0 +1,16 @@
+server:
+  port: 7800
+  context-path: /consumer-feign
+#  servlet:
+#    context-path: /consumer-feign
+spring:
+  application:
+    name: consumer-movie
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}

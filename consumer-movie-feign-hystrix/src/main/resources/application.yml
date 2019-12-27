@@ -1,0 +1,23 @@
+server:
+  port: 7800
+  context-path: /consumer-feign-hystrix
+#  servlet:
+#    context-path: /consumer-feign
+spring:
+  application:
+    name: consumer-feign-hystrix
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+    healthcheck:
+      enabled: true
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
+
+#从Spring Cloud Dalston开始(包括Edgware)，Feign默认是不开启Hystrix的
+feign:
+  hystrix:
+    enabled: true

@@ -1,0 +1,23 @@
+server:
+  port: 7801
+  context-path: /consumer-ribbon
+#  servlet:
+#    context-path: /consumer-ribbon
+spring:
+  application:
+    name: consumer-movie
+
+consumer:
+  movie:
+#    userUrl: http://localhost:7900/provider/user/find/
+#用服务提供者的spring.application.name替换服务提供者的ip:port，
+#在注册中心中获取到服务提供者的spring.application.name，即可请求到服务提供者相应路径的controller方法
+    userRibbonUrl: http://provider-user/provider/user/find/
+
+eureka:
+  client:
+    com.example.service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}

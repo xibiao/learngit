@@ -1,0 +1,32 @@
+server:
+  port: 7903
+  context-path: /provider
+#  servlet:
+#    context-path: /provider
+spring:
+  application:
+    name: provider-user-two
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    platform: h2
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+logging:
+  level:
+    root: info
+    org.hibernate: info
+    org.hibernate.type.descriptor.sql.BasciBinder: trace
+    org.hibernate.type.descriptor.sql.BasciExtractor: trace
+    com.sample: debug
+eureka:
+  client:
+    com.example.service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+

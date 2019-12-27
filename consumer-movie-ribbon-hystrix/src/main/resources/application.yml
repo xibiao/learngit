@@ -1,0 +1,21 @@
+server:
+  port: 7801
+  context-path: /consumer-ribbon-hystrix
+#  servlet:
+#    context-path: /consumer-ribbon
+spring:
+  application:
+    name: consumer-ribbon-hystrix
+
+consumer:
+  movie:
+    userUrl: http://localhost:7900/provider/user/find/
+    userRibbonUrl: http://provider-user/provider/user/find/
+
+eureka:
+  client:
+    com.example.service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${spring.application.instance_id:${server.port}}
